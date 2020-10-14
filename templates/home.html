@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltrl">
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+    </head>
+    <body>
+        <p><img src="http://4.bp.blogspot.com/-3XdtBiUEuFE/UrceOrkOmDI/AAAAAAAAQ-M/--9H9kLDoAw/s1600/Times+Square+christmas+%252811%2529.jpg" width="478" height="139" /></p>
+        <p style="text-align: center;">Movie DB</p>
+        <p style="text-align: left;">Top Movies</p>
+        <table style="height: 24px;" width="441">
+        <tbody>
+        <tr>
+        <td style="width: 81.6px;">&nbsp;</td>
+        <td style="width: 81.6px;">&nbsp;</td>
+        <td style="width: 81.6px;">&nbsp;</td>
+        <td style="width: 82.4px;">&nbsp;</td>
+        <td style="width: 82.4px;">&nbsp;</td>
+        </tr>
+        </tbody>
+        </table>
+        <p>&nbsp;</p>
+        <table style="height: 31px;" width="446">
+        <tbody>
+        <tr>
+        <td style="width: 104.8px; vertical-align: top;">
+        <p>Filter</p>
+        <p>&nbsp;</p>
+        </td>
+        <td style="width: 104.8px;">&nbsp;</td>
+        <form method='POST' action="/index2.html">
+            <label for="fname">First name:</label><br>
+            <input type="text" id="fname" name="fname" value="John"><br>
+            <input type="submit" value="Submit">
+        </form> 
+        <td style="width: 104.8px; vertical-align: top;">Genres</td>
+        <form action="/action_page.php">
+            <label for="lname">Last name:</label><br>
+            <input type="text" id="lname" name="lname" value="Doe"><br><br>
+        </form> 
+        <td style="width: 105.6px;">&nbsp;</td>
+        </tr>
+        </tbody>
+        </table>
+        Hello World.<br>
+        I have some movies for you:<br>
+        {% for movie in results %}
+        <ul>{{movie}}</ul>
+        {% endfor %}
+        <a href='/'>Back to Index Page</a>
+    </body>
+</html>

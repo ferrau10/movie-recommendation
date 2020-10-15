@@ -1,6 +1,7 @@
 import sqlalchemy as sql
 import requests
 import re
+import json
 
 # print(sql.__version__)
 
@@ -11,32 +12,42 @@ DB = 'moviedb'
 PASSWORD = 'postgres'
 
 engine = sql.create_engine(f'postgres://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB}')
-
-query = sql.text("SELECT * FROM links LIMIT 3")
+query = sql.text("SELECT * FROM links LIMIT 7")
 results = engine.execute(query)
 
-uri = 'https://www.imdb.com/title/tt'
+def get_popular_tags():
+    query = sql.text("SELECT * FROM tags LIMIT 15")
+    results = engine.execute(query)
+    tags=[]
+    for i in results:
+        tags.append(i[2])
+    return tags
 
-movies =[]
-for i in results:
-    #print(list(i))
-    output = str(i[1]).rjust(7, '0')
-    #movies.append(uri+output)
-    resp = requests.get(uri+output)
-    pattern = '<div class="poster"><a href="(\\w.*?)">'
-    #<img alt="[\\w.*?]src="(\\w.*?)">'
-    img = re.findall(pattern, resp.text)
-    print(img)
+def get_images():
+    query = sql.text("SELECT * FROM links LIMIT 4")
+    results = engine.execute(query)
+    uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
+    titles = []
+    images = []
+    for i in results:
+        #print(list(i))
+        output = str(i[1]).rjust(7, '0')
+        #movies.append(uri+output)
+        url = uri+output
+        #resp = requests.get(url)
+        #image = resp.json()['items'][0]['image']
+        #title = resp.json()['items'][0]['title']
+        image = "https://f4.bcbits.com/img/0002211150_10.jpg"
+        title = "Gummi Bär"
+        titles.append(title)
+        images.append(image)
+    return (titles, images)
 
+print(get_popular_tags())
 
-print(movies)
+#print(movies)
 
 # def random_recommander(num):
 #     import random
 #     result = random.choices(movies, k=num)
 #     return result
-
-
-<div class="poster">
-<a href="/title/tt0114709/mediaviewer/rm3813007616?ref_=tt_ov_i"> <img alt="Toy Story Poster" title="Toy Story Poster" src="https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_UX182_CR0,0,182,268_AL_.jpg">
-<img alt="Toy Story Poster" title="Toy Story Poster" src="https://m.media-amazon.com/images/M/MV5BMDU2ZWJlMjktMTRhMy00ZTA5LWEzNDgtYmNmZTEwZTViZWJkXkEyXkFqcGdeQXVyNDQ2OTk4MzI@._V1_UX182_CR0,0,182,268_AL_.jpg"></a>    </div>

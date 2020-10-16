@@ -38,10 +38,16 @@ def get_images():
         #image = resp.json()['items'][0]['image']
         #title = resp.json()['items'][0]['title']
         image = "https://f4.bcbits.com/img/0002211150_10.jpg"
-        title = "Gummi Bär"
+        #title = "Gummi Bär"
+        title = i[0] 
         titles.append(title)
         images.append(image)
     return (titles, images)
+
+    def get_movies_by_genre(genre):
+        query = sql.text("SELECT * FROM links LIMIT 4")
+        results = engine.execute(query)
+
 
 print(get_popular_tags())
 

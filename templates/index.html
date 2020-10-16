@@ -1,12 +1,227 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltrl">
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-    </head>
-    <body>
-        <h1>Index Page!!</h1>
-        <br>
-            <a href='/index2'>Go Home {{text}}</a>
-    </body>
+<html>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="static/css/fontawesome-stars.css">
+<link rel="stylesheet" href="static/css/examples.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<!-- ............ -->
+<link rel="stylesheet" href="static/css/normalize.min.css">
+<link rel="stylesheet" href="static/css/main.css">
+<link rel="stylesheet" href="static/css/examples.css">
+
+<!-- Icons -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<!-- Themes -->
+<link rel="stylesheet" href="static/css/dist/themes/bars-1to10.css">
+<link rel="stylesheet" href="static/css/dist/themes/bars-1to10.css">
+<link rel="stylesheet" href="static/css/dist/themes/bars-1to10.css">
+<link rel="stylesheet" href="static/css/dist/themes/bars-movie.css">
+<link rel="stylesheet" href="static/css/dist/themes/bars-square.css">
+<link rel="stylesheet" href="static/css/dist/themes/bars-pill.css">
+<link rel="stylesheet" href="static/css/dist/themes/bars-reversed.css">
+<link rel="stylesheet" href="static/css/dist/themes/bars-horizontal.css">
+<link rel="stylesheet" href="static/css/dist/themes/bars-horizontal.css">
+<link rel="stylesheet" href="static/css/dist/themes/bars-horizontal.css">
+<link rel="stylesheet" href="static/css/dist/themes/fontawesome-stars.css">
+<link rel="stylesheet" href="static/css/dist/themes/css-stars.css">
+<link rel="stylesheet" href="static/css/dist/themes/bootstrap-stars.css">
+<link rel="stylesheet" href="static/css/dist/themes/fontawesome-stars-o.css">
+
+<!-- Fonts -->
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+<!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+<![endif]-->
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+
+.button_gray {background-color: #e7e7e7; color: black;} /* Gray */ 
+
+div.scroll { 
+    margin: 4px, 4px; 
+    padding: 4px; 
+    background-color: #08c708; 
+    width: 1000px; 
+    overflow-x: auto; 
+    overflow-y: hidden; 
+    white-space: nowrap; 
+} 
+
+div .slide {
+    display: inline-block;
+    overflow: visible;
+    white-space:nowrap;
+}
+#rating {
+  text-align: center;
+  perspective: 250px;
+  position: relative;
+  top: 40%;
+  width: 100%;
+}
+
+#rating span {
+  cursor: pointer;
+  font-size: 50px;
+  padding: 0 10px;
+  color: rgb(15, 1, 1);
+  opacity: .5;
+  transition: all 150ms;
+  display: inline-block;
+  transform: rotateX(45deg);
+  transform-origin: center bottom;
+}
+
+#rating span.hover {
+  color: #ff0;
+  opacity: 1;
+  transform: rotateX(0deg);
+  text-shadow: 0 0 30px #ffc;
+}
+</style>
+<body>
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+    <!-- <div class="w3-button w3-padding-16 w3-left" onclick="w3_open()">☰</div> -->
+    <!-- <div class="w3-dropdown-hover w3-padding-16 w3-left" onclick="w3_open()">☰</div> -->
+      <h6 class="w3-opacity">&nbsp;</h6>
+      <p contenteditable="true" class="w3-border w3-padding" id="filter">Status: Feeling Blue</p>
+      <button type="button" class="w3-button w3-theme" onclick="filter()"><i class="fa fa-pencil"></i> &nbsp;Filter</button> 
+    <div class="w3-right w3-padding-16 w3-button button_gray" onclick="recommend()">Recommend
+      <!-- <a href="/" class="w3-right w3-padding-16">Recommend!!<a>   -->
+    </div>
+    <div class="w3-center w3-padding-16"><h2><b>** Movie Groovie **</b></h2></div>
+  </div>
+</div>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:260px">
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    {% for movie in movies %}
+    <div class="w3-quarter">
+      <img src="{{movie[1]}}" alt="" style="width:100%">
+      <h3>{{movie[0]}}</h3>
+      <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+      <p>
+        <!-- <div id="rating">
+          <span>?</span>
+          <span>?</span>
+          <span>?</span>
+          <span>?</span>
+          <span>?</span>
+        </div> -->
+        <div class="stars stars-example-fontawesome">
+          <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off">
+            <option value="">1</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+          <span class="title">like me? rate me!</span>
+        </div>
+      </p>
+    </div>
+    {% endfor %}
+  </div>
+  <!-- Pagination -->
+  <div class="w3-center w3-padding-32">
+    <div class="w3-bar pagination" id="myPager" onclick="pagination()">
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+      <a href="#" class="w3-bar-item w3-black w3-button">1</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+    </div>
+  </div>
+  <hr>
+  <!-- Second Photo Grid-->
+  <!-- <div class="w3-row-padding w3-padding-16 w3-center" id="food">
+    {% for movie in movies %}
+    <div class="w3-quarter">
+      <img src="{{movie[1]}}" alt="" style="width:100%">
+      <h3>{{movie[0]}}</h3>
+      <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
+    </div>
+    {% endfor %}
+  </div> -->
+  <!-- Pagination -->
+  <!-- <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+      <a href="#" class="w3-bar-item w3-black w3-button">1</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+    </div>
+  </div>
+  <hr> -->
+  <!-- Footer -->
+  <footer class="w3-row-padding w3-padding-32">
+    <div class="w3-third">
+      <h3>FOOTER</h3>
+      <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+    <div class="w3-third">
+      <h3>Powered By</h3>
+      <ul class="w3-ul w3-hoverable">
+        <li class="w3-padding-16">
+          <img src="/w3images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Aurelie</span><br>
+          <span>...</span>
+        </li>
+        <li class="w3-padding-16">
+          <img src="/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Marcus</span><br>
+          <span>...</span>
+        </li>
+      </ul>
+    </div>
+    <div class="w3-third w3-serif">
+      <h3>POPULAR TAGS</h3>
+      <p>
+        {% for tag in tags %}
+          <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">{{tag}}</span>
+        {% endfor %}
+      </p>
+    </div>
+  </footer>
+<!-- End page content -->
+</div>
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+function recommend() {
+  url = "recommend?userid=1";
+  location.href = url;
+}
+function filter() {
+  // url = "filter";
+  // location.href = url;
+  document.getElementById("filter").innerText="Hello";
+}
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+<script src="static/js/jquery.barrating.min.js"></script>
+<script src="static/js/examples.js"></script>
+</body>
 </html>

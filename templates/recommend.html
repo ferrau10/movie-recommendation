@@ -1,12 +1,127 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltrl">
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-    </head>
-    <body>
-        <h1>Reccomend Page!!</h1>
-        <br>
-            <a href='/'>Goto Start Page</a>
-    </body>
+<html>
+<title>SPICDED Project Recommender</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="static/css/fontawesome-stars.css">
+<link rel="stylesheet" href="static/css/examples.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
+<!-- ............ -->
+<link rel="stylesheet" href="static/css/normalize.min.css">
+<link rel="stylesheet" href="static/css/main.css">
+<link rel="stylesheet" href="static/css/examples.css">
+
+<!-- Icons -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<!-- Themes -->
+<link rel="stylesheet" href="static/css/dist/themes/fontawesome-stars.css">
+<link rel="stylesheet" href="static/css/dist/themes/css-stars.css">
+<link rel="stylesheet" href="static/css/dist/themes/bootstrap-stars.css">
+<link rel="stylesheet" href="static/css/dist/themes/fontawesome-stars-o.css">
+
+<!-- Fonts -->
+<link href="http://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+
+<!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+<![endif]-->
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
+.w3-bar-block .w3-bar-item {padding:20px}
+
+.button_gray {background-color: #e7e7e7; color: black;} /* Gray */ 
+
+</style>
+<body>
+<!-- Top menu -->
+<div class="w3-top">
+  <div class="w3-white w3-xlarge" style="max-width:1200px;margin:auto">
+      <h6 class="w3-opacity">&nbsp;</h6>
+    <div class="w3-right w3-padding-16 w3-button button_gray" onclick="home()">Home </div>
+    <div class="w3-center w3-padding-16"><h2><b>** Watch this now!! **</b></h2></div>
+  </div>
+</div>
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:260px">
+  <!-- Photo Grid-->
+  
+
+  <div class="w3-row-padding w3-padding-16 w3-center" id="row_1" style="display: block;">
+    {% for movie in recommendation %}
+      <div class="w3-third">
+        <img src='static/img/spearmint_vm_logo.png' alt="" style="width:100%">
+        <h3>{{movie[0]}}</h3>
+      </div>
+    {% endfor %}
+  </div>
+
+  
+
+  <!-- Footer -->
+  <footer class="w3-row-padding w3-padding-32">
+    <div class="w3-half">
+      <h3>Usage</h3>
+      <p>Here are some movies we recommend based on your ratings. If you did not rate anything, we recommend our favorite movies! To rate some more, and get new recommendations, click the home button! </p>
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+    </div>
+    <div class="w3-half" style="visibility: hidden;">
+      <h3>Powered By</h3>
+      <ul class="w3-ul w3-hoverable">
+        <li class="w3-padding-16">
+          <img src="/w3images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Aurelie</span><br>
+          <span>...</span>
+        </li>
+        <li class="w3-padding-16">
+          <img src="/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Marcus</span><br>
+          <span>...</span>
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+<!-- End page content -->
+</div>
+
+
+<script>
+
+function home() {
+  url = "/";
+  location.href = url;
+}
+
+
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+<script src="static/js/jquery.barrating.min.js"></script>
+<script src="static/js/examples.js"></script>
+<form action="#" id="formular" name="formular" method="POST">
+  <input type="hidden" id="filter"   name="filter" value="Drama">
+  <input type="hidden" id="form_1_1" name="1_1" value="">
+  <input type="hidden" id="form_1_2" name="1_2" value="">
+  <input type="hidden" id="form_1_3" name="1_3" value="">
+  <input type="hidden" id="form_1_4" name="1_4" value="">
+  <input type="hidden" id="form_2_1" name="2_1" value="">
+  <input type="hidden" id="form_2_2" name="2_2" value="">
+  <input type="hidden" id="form_2_3" name="2_3" value="">
+  <input type="hidden" id="form_2_4" name="2_4" value="">
+  <input type="hidden" id="form_3_1" name="3_1" value="">
+  <input type="hidden" id="form_3_2" name="3_2" value="">
+  <input type="hidden" id="form_3_3" name="3_3" value="">
+  <input type="hidden" id="form_3_4" name="3_4" value="">
+  <input type="hidden" id="form_4_1" name="4_1" value="">
+  <input type="hidden" id="form_4_2" name="4_2" value="">
+  <input type="hidden" id="form_4_3" name="4_3" value="">
+  <input type="hidden" id="form_4_4" name="4_4" value="">
+</form>
+</body>
 </html>

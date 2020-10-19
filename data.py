@@ -33,13 +33,13 @@ def get_movies():
     for i in results:
         output = str(i[1]).rjust(7, '0')
         url = uri+output
-        #resp = requests.get(url)
-        #print(resp.json())
-        #image = resp.json()['items'][0]['image']
-        #title = resp.json()['items'][0]['title']
-        image = "https://f4.bcbits.com/img/0002211150_10.jpg"
+        resp = requests.get(url)
+        print(resp.json())
+        image = resp.json()['items'][0]['image']
+        title = resp.json()['items'][0]['title']
+        #image = "https://f4.bcbits.com/img/0002211150_10.jpg"
         #title = "Gummi Bär"
-        title = i[0] 
+        #title = i[0] 
         titles.append(title)
         images.append(image)
         genres.append(' ')

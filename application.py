@@ -12,12 +12,18 @@ def index():
     return render_template('index.html', movies=list(zip(titles, images)), tags=tags)
     #return render_template('index.html')
   
+
 @app.route('/recommend', methods = ['POST', 'GET'])      
 def recommend():
-    print(request.args['userid'])
-    #fname = 'John'
-    #print(request.form['fname'])
-    return render_template('recommend.html')
+    try:
+        user_id = request.args['userid']
+    except KeyError:
+        user_id = 1
+    finally: 
+        recommendation = data.get_recommendations_name(user_id, 3)
+    return render_template('recommend.html', recommendation=zip(recommendation))
+
+
 
 # trigger hello function every time somebody visits \home on my website
 @app.route('/filter', methods = ['POST', 'GET'])
@@ -34,17 +40,12 @@ def filter():
     tags = data.get_popular_tags()
     return render_template('index.html', movies=list(zip(titles, images, genres)), tags=tags, from_filter=1)
 
+
 @app.route('/images')
 def images():
     return render_template('images.html')
 
 
-
-@app.route('/recommendation', methods = ['POST', 'GET'])
-def give_recommendation():
-    recommendation = data.get_recommendations_name(1, 3)
-    return render_template('recommendation.html', recommendation=zip(recommendation))
-    #return render_template('index2.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

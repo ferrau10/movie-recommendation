@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 import data
+from itertools import product   
 
 # instantiate a Flask application
 app = Flask(__name__)
@@ -19,9 +20,16 @@ def recommend():
     return render_template('recommend.html')
 
 # trigger hello function every time somebody visits \home on my website
-@app.route('/filter')
+@app.route('/filter', methods = ['POST', 'GET'])
 def filter():
-    filter = request.args['filter']
+    ratings = {}
+    filter = request.form['filter']
+    for i in product([1,2,3,4], [1,2,3,4]):
+        ratings[i]=request.form[str(i[0])+'_'+str(i[1])]
+    print(ratings)
+
+    #data.set_user_ratings(user, ratings)
+
     titles, images, genres = data.get_movies_by_genre(filter)
     tags = data.get_popular_tags()
     return render_template('index.html', movies=list(zip(titles, images, genres)), tags=tags, from_filter=1)

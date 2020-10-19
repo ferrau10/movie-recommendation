@@ -56,8 +56,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
         <h3>{{movie[0]}}</h3>
         <p>row_1: {{movie[2]}}</p>
         <p>
-          <div class="stars stars-example-fontawesome">
-            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off">
+        <div class="stars stars-example-fontawesome">
+            <select class="example-fontawesome" id="rating_{{movie[0]}}" autocomplete="off" onchange="rating(1, {{movie[0]}});">
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -79,7 +79,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
         <p>row_2: {{movie[2]}}</p>
         <p>
           <div class="stars stars-example-fontawesome">
-            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off">
+            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off" onchange="rating(2, {{movie[0]}});">
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -101,7 +101,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
         <p>row_3: {{movie[2]}}</p>
         <p>
           <div class="stars stars-example-fontawesome">
-            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off">
+            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off" onchange="rating(3, {{movie[0]}});">
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -122,8 +122,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
         <h3>{{movie[0]}}</h3>
         <p>row_4: {{movie[2]}}</p>
         <p>
-          <div class="stars stars-example-fontawesome">
-            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off">
+          <div class="stars stars-example-fontawesome" onclick="rating({{movie[0]}})">
+            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off" onchange="rating(4, {{movie[0]}});">
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -194,11 +194,12 @@ function clean() {
   document.getElementById("filter").innerText="";
 }
 function filter() {
-  // url = "filter";
+  console.log(document.formular.elements['filter'].value)
+  url = "/filter";
+  document.formular.elements['filter'].value=document.getElementById("filter").innerText;
+  document.getElementById("formular").action=url;
+  document.getElementById("formular").submit();
   // location.href = url;
-  value = document.getElementById("filter").innerText;
-  url = "filter?filter="+value;
-  location.href = url;
 }
 function paginate(x){
   var i;
@@ -216,11 +217,33 @@ function paginate(x){
     }
   }
 }
+function rating(page, name){
+  document.getElementById("form_"+page+"_"+name).value=document.getElementById("rating_"+name).value;
+}
 </script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
 <script src="static/js/jquery.barrating.min.js"></script>
 <script src="static/js/examples.js"></script>
+<form action="#" id="formular" name="formular" method="POST">
+  <input type="hidden" id="filter"   name="filter" value="Drama">
+  <input type="hidden" id="form_1_1" name="1_1" value="">
+  <input type="hidden" id="form_1_2" name="1_2" value="">
+  <input type="hidden" id="form_1_3" name="1_3" value="">
+  <input type="hidden" id="form_1_4" name="1_4" value="">
+  <input type="hidden" id="form_2_1" name="2_1" value="">
+  <input type="hidden" id="form_2_2" name="2_2" value="">
+  <input type="hidden" id="form_2_3" name="2_3" value="">
+  <input type="hidden" id="form_2_4" name="2_4" value="">
+  <input type="hidden" id="form_3_1" name="3_1" value="">
+  <input type="hidden" id="form_3_2" name="3_2" value="">
+  <input type="hidden" id="form_3_3" name="3_3" value="">
+  <input type="hidden" id="form_3_4" name="3_4" value="">
+  <input type="hidden" id="form_4_1" name="4_1" value="">
+  <input type="hidden" id="form_4_2" name="4_2" value="">
+  <input type="hidden" id="form_4_3" name="4_3" value="">
+  <input type="hidden" id="form_4_4" name="4_4" value="">
+</form>
 </body>
 </html>

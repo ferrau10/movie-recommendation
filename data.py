@@ -42,7 +42,7 @@ def get_movies():
         title = i[0] 
         titles.append(title)
         images.append(image)
-        genres.append('Drama')
+        genres.append(' ')
     return (titles, images, genres)
 
 def get_movies_by_genre(genre="%"):
@@ -66,6 +66,9 @@ def get_movies_by_genre(genre="%"):
         images.append(image)
         genres.append(i[5])
     return (titles, images, genres)
+
+# def set_user_ratings(user=900, ratings):
+#     pass
 
 #print(get_movies_by_genre('Fantasy'))
 

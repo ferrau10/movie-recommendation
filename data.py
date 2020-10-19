@@ -26,18 +26,18 @@ def get_popular_tags():
         tags.append(i[2])
     return tags
 
-def get_images():
+def get_movies():
     query = sql.text("SELECT * FROM links LIMIT 4")
     results = engine.execute(query)
     uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
     titles = []
     images = []
+    genres = []
     for i in results:
-        #print(list(i))
         output = str(i[1]).rjust(7, '0')
-        #movies.append(uri+output)
         url = uri+output
         #resp = requests.get(url)
+        #print(resp.json())
         #image = resp.json()['items'][0]['image']
         #title = resp.json()['items'][0]['title']
         image = "https://f4.bcbits.com/img/0002211150_10.jpg"
@@ -45,14 +45,35 @@ def get_images():
         title = i[0] 
         titles.append(title)
         images.append(image)
-    return (titles, images)
+        genres.append(' ')
+    return (titles, images, genres)
 
-    def get_movies_by_genre(genre):
-        query = sql.text("SELECT * FROM links LIMIT 4")
-        results = engine.execute(query)
+def get_movies_by_genre(genre="%"):
+    query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.genres LIKE '{genre}' LIMIT 4")
+    results = engine.execute(query)
+    uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
+    titles = []
+    images = []
+    genres = []
+    for i in results:
+        output = str(i[1]).rjust(7, '0')
+        url = uri+output
+        #resp = requests.get(url)
+        #print(i[5])
+        #image = resp.json()['items'][0]['image']
+        #title = resp.json()['items'][0]['title']
+        image = "https://f4.bcbits.com/img/0002211150_10.jpg"
+        #title = "Gummi Bär"
+        title = i[0] 
+        titles.append(title)
+        images.append(image)
+        genres.append(i[5])
+    return (titles, images, genres)
 
+# def set_user_ratings(user=900, ratings):
+#     pass
 
-print(get_popular_tags())
+#print(get_movies_by_genre('Fantasy'))
 
 
 

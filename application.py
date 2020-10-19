@@ -25,6 +25,7 @@ def hell():
     #print(titles)
     return render_template('index2.html', movies=zip(titles, images), tags=tags)
     #return render_template('index2.html')
+    
 @app.route('/', methods = ['POST', 'GET'])      
 def index():
     #print(request.args['fname'])
@@ -33,6 +34,13 @@ def index():
     #return render_template('index.html', text=request.form['fname'])
     return render_template('index.html')
 
+
+@app.route('/recommendation', methods = ['POST', 'GET'])
+def give_recommendation():
+    recommendation = data.get_recommendations_name(1, 3)
+    return render_template('recommendation.html', recommendation=zip(recommendation))
+    #return render_template('index2.html')
+
 if __name__ == '__main__':
-    app.run(port=80, debug=True)
+    app.run(debug=True)
 

@@ -11,7 +11,7 @@ def index():
     tags = data.get_popular_tags()
     return render_template('index.html', movies=list(zip(titles, images)), tags=tags)
     #return render_template('index.html')
-
+  
 @app.route('/recommend', methods = ['POST', 'GET'])      
 def recommend():
     print(request.args['userid'])
@@ -39,6 +39,13 @@ def images():
     return render_template('images.html')
 
 
+
+@app.route('/recommendation', methods = ['POST', 'GET'])
+def give_recommendation():
+    recommendation = data.get_recommendations_name(1, 3)
+    return render_template('recommendation.html', recommendation=zip(recommendation))
+    #return render_template('index2.html')
+
 if __name__ == '__main__':
-    app.run(port=80, debug=True)
+    app.run(debug=True)
 

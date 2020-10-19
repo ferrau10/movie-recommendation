@@ -34,10 +34,9 @@ def images():
     return render_template('images.html')
 
 
-
 @app.route('/recommendation', methods = ['POST', 'GET'])
 def give_recommendation():
-    recommendation = data.get_recommendations_name(1, 3)
+    recommendation = data.get_recommendations_name(10, 3)
     return render_template('recommendation.html', recommendation=zip(recommendation))
     #return render_template('index2.html')
 

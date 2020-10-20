@@ -54,7 +54,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <div class="w3-quarter">
         <img src="{{movie[1]}}" alt="" style="width:100%">
         <h3>{{movie[0]}}</h3>
-        <p>{{movie[2]}}</p>
+        <p>{% if from_filter %}{{movie[3]}}{% endif %}</p>
         <p>
         <div class="stars stars-example-fontawesome">
             <select class="example-fontawesome" id="star_{{movie[2]}}" autocomplete="off" onchange="rating(1, {{movie[2]}});">
@@ -65,7 +65,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-            <span class="title">like me? rate me!</span>
+            <span class="title">know me? rate me!</span>
           </div>
         </p>
       </div>
@@ -76,7 +76,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <div class="w3-quarter">
         <img src="{{movie[1]}}" alt="" style="width:100%">
         <h3>{{movie[0]}}</h3>
-        <p>{{movie[2]}}</p>
+        <p>{% if from_filter %}{{movie[3]}}{% endif %}</p>
         <p>
           <div class="stars stars-example-fontawesome">
             <select class="example-fontawesome" id="star_{{movie[2]}}" autocomplete="off" onchange="rating(2, {{movie[2]}});">
@@ -87,7 +87,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-            <span class="title">like me? rate me!</span>
+            <span class="title">know me? rate me!</span>
           </div>
         </p>
       </div>        
@@ -98,7 +98,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <div class="w3-quarter">
         <img src="{{movie[1]}}" alt="" style="width:100%">
         <h3>{{movie[0]}}</h3>
-        <p>{{movie[2]}}</p>
+        <p>{% if from_filter %}{{movie[3]}}{% endif %}</p>
         <p>
           <div class="stars stars-example-fontawesome">
             <select class="example-fontawesome" id="star_{{movie[2]}}" autocomplete="off" onchange="rating(3, {{movie[2]}});">
@@ -109,7 +109,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-            <span class="title">like me? rate me!</span>
+            <span class="title">know me? rate me!</span>
           </div>
         </p>
       </div>        
@@ -120,7 +120,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
       <div class="w3-quarter">
         <img src="{{movie[1]}}" alt="" style="width:100%">
         <h3>{{movie[0]}}</h3>
-        <p>{{movie[2]}}</p>
+        <p>{% if from_filter %}{{movie[3]}}{% endif %}</p>
         <p>
           <div class="stars stars-example-fontawesome">
             <select class="example-fontawesome" id="star_{{movie[2]}}" autocomplete="off" onchange="rating(4, {{movie[2]}});">
@@ -131,7 +131,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
               <option value="4">4</option>
               <option value="5">5</option>
             </select>
-            <span class="title">like me? rate me!</span>
+            <span class="title">know me? rate me!</span>
           </div>
         </p>
       </div>        
@@ -186,8 +186,10 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 </div>
 <script>
 function recommend() {
-  url = "recommendation?userid=1";
-  location.href = url;
+  url = "/recommend?userid=900";
+  document.getElementById("formular").action=url;
+  document.getElementById("formular").submit();
+  // location.href = url;
 }
 function clean() {
   // console.log("Hallo")

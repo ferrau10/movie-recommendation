@@ -27,8 +27,12 @@ def recommend():
     except KeyError:
         user_id = 1
     finally: 
-        recommendation = data.get_recommendations_name(user_id, 3)
-    return render_template('recommend.html', recommendation=zip(recommendation))
+        recommendation_name, recommendation_id = data.get_recommendations_name(user_id, 3)
+        image_list = []
+        for i in recommendation_id:
+            image = data.get_image_by_id(i)
+            image_list.append(image)
+    return render_template('recommend.html', recommendation=list(zip(recommendation_name, recommendation_id, image_list)))
 
 
 

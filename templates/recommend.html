@@ -54,7 +54,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
   <div class="w3-row-padding w3-padding-16 w3-center" id="row_1" style="display: block;">
     {% for movie in recommendation %}
       <div class="w3-third">
-        <img src='static/img/spearmint_vm_logo.png' alt="" style="width:100%">
+        <img src="{{movie[2]}}" alt="" style="width:100%">
         <h3>{{movie[0]}}</h3>
       </div>
     {% endfor %}

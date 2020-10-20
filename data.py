@@ -53,6 +53,8 @@ def get_movies():
         ids.append(i[0])
     return (titles, images, genres, ids)
 
+
+
 def get_movies_by_genre(genre="%"):
     # query = sql.text(f"SELECT * FROM links, movies, ratings WHERE movies.movieid = links.movieid \
     #                                                         AND links.movieid = ratings.movieid \
@@ -82,11 +84,12 @@ def get_movies_by_genre(genre="%"):
         images.append(image)
         var = i[5]
         if len(var.split('|')) > 3:
-            var="|".join(var.split('|')[0:2])
+          var="|".join(var.split('|')[0:2])
         genres.append(var)
         ids.append(i[0])
     return (titles, images, genres, ids)
 
+  
 def set_user_ratings(movieids, ratings, userid=900):
     for i in product([1,2,3,4], [1,2,3,4]):
         rating  = ratings[i]
@@ -96,9 +99,20 @@ def set_user_ratings(movieids, ratings, userid=900):
             print(query)
             engine.execute(query)
 
-#print(get_movies_by_genre('Fantasy'))
 
+def get_image_by_id(movieid="%"):
+    query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.movieid = '{movieid}'")
+    results = engine.execute(query)
+    uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
 
+    for i in results:
+        output = str(i[1]).rjust(7, '0')
+        url = uri+output
+        resp = requests.get(url)
+        print(resp.json())
+        print(resp.json()['items'][0]['image'])
+        image = resp.json()['items'][0]['image']
+    return image
 
 
 #note: there are two functions, one returns movie ids, the other movies titles.
@@ -152,7 +166,7 @@ def get_recommendations(userId, n):
 def get_recommendations_name(userId, n):
 
     '''
-    this function gets a user Id, and returns n movie titles based on the user's ratings
+    this function gets a user Id, and returns n movie titles and their ids based on the user's ratings
     '''
 
     query = sql.text(f" select * from ratings WHERE userId = {userId}")
@@ -174,10 +188,15 @@ def get_recommendations_name(userId, n):
     
     return_list_name = []
     
-    for i in range(3):
+    for i in range(n):
         moviename= user_input['title'].iloc[i]
         return_list_name.append(moviename)
+    
+    return_list_id = []
+    
+    for i in range(n):
+        movieId = user_input.movieId.iloc[i]
+        return_list_id.append(movieId)
 
-    return return_list_name
+    return return_list_name, return_list_id
 
-print(get_recommendations_name(1, 4))

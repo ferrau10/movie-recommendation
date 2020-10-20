@@ -63,7 +63,7 @@ def get_recommendations(userId, n):
 def get_recommendations_name(userId, n):
 
     '''
-    this function gets a user Id, and returns n movie titles based on the user's ratings
+    this function gets a user Id, and returns n movie titles and their ids based on the user's ratings
     '''
 
     query = sql.text(f" select * from ratings WHERE userId = {userId}")

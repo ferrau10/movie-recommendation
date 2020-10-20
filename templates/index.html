@@ -50,14 +50,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:260px">
   <!-- First Photo Grid-->
   <div class="w3-row-padding w3-padding-16 w3-center" id="row_1" style="display: block;">
-    {% for movie in movies %}
+    {% for movie in movies[0:4] %}
       <div class="w3-quarter">
         <img src="{{movie[1]}}" alt="" style="width:100%">
         <h3>{{movie[0]}}</h3>
-        <p>row_1: {{movie[2]}}</p>
+        <p>{{movie[2]}}</p>
         <p>
         <div class="stars stars-example-fontawesome">
-            <select class="example-fontawesome" id="rating_{{movie[0]}}" autocomplete="off" onchange="rating(1, {{movie[0]}});">
+            <select class="example-fontawesome" id="star_{{movie[2]}}" autocomplete="off" onchange="rating(1, {{movie[2]}});">
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -72,14 +72,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     {% endfor %}
   </div>
   <div class="w3-row-padding w3-padding-16 w3-center" id="row_2" style="display: none;">
-    {% for movie in movies %}
+    {% for movie in movies[4:8] %}
       <div class="w3-quarter">
         <img src="{{movie[1]}}" alt="" style="width:100%">
         <h3>{{movie[0]}}</h3>
-        <p>row_2: {{movie[2]}}</p>
+        <p>{{movie[2]}}</p>
         <p>
           <div class="stars stars-example-fontawesome">
-            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off" onchange="rating(2, {{movie[0]}});">
+            <select class="example-fontawesome" id="star_{{movie[2]}}" autocomplete="off" onchange="rating(2, {{movie[2]}});">
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -94,14 +94,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     {% endfor %}
   </div>
   <div class="w3-row-padding w3-padding-16 w3-center" id="row_3" style="display: none;">
-    {% for movie in movies %}
+    {% for movie in movies[8:12] %}
       <div class="w3-quarter">
         <img src="{{movie[1]}}" alt="" style="width:100%">
         <h3>{{movie[0]}}</h3>
-        <p>row_3: {{movie[2]}}</p>
+        <p>{{movie[2]}}</p>
         <p>
           <div class="stars stars-example-fontawesome">
-            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off" onchange="rating(3, {{movie[0]}});">
+            <select class="example-fontawesome" id="star_{{movie[2]}}" autocomplete="off" onchange="rating(3, {{movie[2]}});">
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -116,14 +116,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
     {% endfor %}
   </div>
   <div class="w3-row-padding w3-padding-16 w3-center" id="row_4" style="display: none;">
-    {% for movie in movies %}
+    {% for movie in movies[12:16] %}
       <div class="w3-quarter">
         <img src="{{movie[1]}}" alt="" style="width:100%">
         <h3>{{movie[0]}}</h3>
-        <p>row_4: {{movie[2]}}</p>
+        <p>{{movie[2]}}</p>
         <p>
-          <div class="stars stars-example-fontawesome" onclick="rating({{movie[0]}})">
-            <select class="example-fontawesome" name="rating_{{movie[0]}}" autocomplete="off" onchange="rating(4, {{movie[0]}});">
+          <div class="stars stars-example-fontawesome">
+            <select class="example-fontawesome" id="star_{{movie[2]}}" autocomplete="off" onchange="rating(4, {{movie[2]}});">
               <option value="">0</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -186,7 +186,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 </div>
 <script>
 function recommend() {
-  url = "recommend?userid=1";
+  url = "recommendation?userid=1";
   location.href = url;
 }
 function clean() {
@@ -194,7 +194,6 @@ function clean() {
   document.getElementById("filter").innerText="";
 }
 function filter() {
-  console.log(document.formular.elements['filter'].value)
   url = "/filter";
   document.formular.elements['filter'].value=document.getElementById("filter").innerText;
   document.getElementById("formular").action=url;
@@ -217,8 +216,9 @@ function paginate(x){
     }
   }
 }
-function rating(page, name){
-  document.getElementById("form_"+page+"_"+name).value=document.getElementById("rating_"+name).value;
+function rating(page, id){
+  console.log(document.getElementById("star_"+id).value)
+  document.getElementById("rating_"+id).value=document.getElementById("star_"+id).value;
 }
 </script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -227,23 +227,40 @@ function rating(page, name){
 <script src="static/js/jquery.barrating.min.js"></script>
 <script src="static/js/examples.js"></script>
 <form action="#" id="formular" name="formular" method="POST">
-  <input type="hidden" id="filter"   name="filter" value="Drama">
-  <input type="hidden" id="form_1_1" name="1_1" value="">
-  <input type="hidden" id="form_1_2" name="1_2" value="">
-  <input type="hidden" id="form_1_3" name="1_3" value="">
-  <input type="hidden" id="form_1_4" name="1_4" value="">
-  <input type="hidden" id="form_2_1" name="2_1" value="">
-  <input type="hidden" id="form_2_2" name="2_2" value="">
-  <input type="hidden" id="form_2_3" name="2_3" value="">
-  <input type="hidden" id="form_2_4" name="2_4" value="">
-  <input type="hidden" id="form_3_1" name="3_1" value="">
-  <input type="hidden" id="form_3_2" name="3_2" value="">
-  <input type="hidden" id="form_3_3" name="3_3" value="">
-  <input type="hidden" id="form_3_4" name="3_4" value="">
-  <input type="hidden" id="form_4_1" name="4_1" value="">
-  <input type="hidden" id="form_4_2" name="4_2" value="">
-  <input type="hidden" id="form_4_3" name="4_3" value="">
-  <input type="hidden" id="form_4_4" name="4_4" value="">
+  <input type="hidden" id="filter" name="filter" value="Drama">
+  <input type="hidden" id="rating_{{movies[0][2]}}" name="rating_1_1" value="">
+  <input type="hidden" id="rating_{{movies[1][2]}}" name="rating_1_2" value="">
+  <input type="hidden" id="rating_{{movies[2][2]}}" name="rating_1_3" value="">
+  <input type="hidden" id="rating_{{movies[3][2]}}" name="rating_1_4" value="">
+  <input type="hidden" id="rating_{{movies[4][2]}}" name="rating_2_1" value="">
+  <input type="hidden" id="rating_{{movies[5][2]}}" name="rating_2_2" value="">
+  <input type="hidden" id="rating_{{movies[6][2]}}" name="rating_2_3" value="">
+  <input type="hidden" id="rating_{{movies[7][2]}}" name="rating_2_4" value="">
+  <input type="hidden" id="rating_{{movies[8][2]}}" name="rating_3_1" value="">
+  <input type="hidden" id="rating_{{movies[9][2]}}" name="rating_3_2" value="">
+  <input type="hidden" id="rating_{{movies[10][2]}}" name="rating_3_3" value="">
+  <input type="hidden" id="rating_{{movies[11][2]}}" name="rating_3_4" value="">
+  <input type="hidden" id="rating_{{movies[12][2]}}" name="rating_4_1" value="">
+  <input type="hidden" id="rating_{{movies[13][2]}}" name="rating_4_2" value="">
+  <input type="hidden" id="rating_{{movies[14][2]}}" name="rating_4_3" value="">
+  <input type="hidden" id="rating_{{movies[15][2]}}" name="rating_4_4" value="">
+
+  <input type="hidden" name="movieid_1_1" value="{{movies[0][2]}}">
+  <input type="hidden" name="movieid_1_2" value="{{movies[1][2]}}">
+  <input type="hidden" name="movieid_1_3" value="{{movies[2][2]}}">
+  <input type="hidden" name="movieid_1_4" value="{{movies[3][2]}}">
+  <input type="hidden" name="movieid_2_1" value="{{movies[4][2]}}">
+  <input type="hidden" name="movieid_2_2" value="{{movies[5][2]}}">
+  <input type="hidden" name="movieid_2_3" value="{{movies[6][2]}}">
+  <input type="hidden" name="movieid_2_4" value="{{movies[7][2]}}">
+  <input type="hidden" name="movieid_3_1" value="{{movies[8][2]}}">
+  <input type="hidden" name="movieid_3_2" value="{{movies[9][2]}}">
+  <input type="hidden" name="movieid_3_3" value="{{movies[10][2]}}">
+  <input type="hidden" name="movieid_3_4" value="{{movies[11][2]}}">
+  <input type="hidden" name="movieid_4_1" value="{{movies[12][2]}}">
+  <input type="hidden" name="movieid_4_2" value="{{movies[13][2]}}">
+  <input type="hidden" name="movieid_4_3" value="{{movies[14][2]}}">
+  <input type="hidden" name="movieid_4_4" value="{{movies[15][2]}}">
 </form>
 </body>
 </html>

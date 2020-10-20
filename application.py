@@ -7,9 +7,9 @@ app = Flask(__name__)
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
-    titles, images, genres = data.get_movies()
+    titles, images, genres, ids = data.get_movies()
     tags = data.get_popular_tags()
-    return render_template('index.html', movies=list(zip(titles, images)), tags=tags)
+    return render_template('index.html', movies=list(zip(titles, images, ids)), tags=tags)
     #return render_template('index.html')
   
 
@@ -29,16 +29,19 @@ def recommend():
 @app.route('/filter', methods = ['POST', 'GET'])
 def filter():
     ratings = {}
+    movieids = {}
     filter = request.form['filter']
+    if filter == "Enter Genre.....":
+        filter = "%"
     for i in product([1,2,3,4], [1,2,3,4]):
-        ratings[i]=request.form[str(i[0])+'_'+str(i[1])]
-    print(ratings)
+        ratings[i]  = request.form['rating_'+str(i[0])+'_'+str(i[1])]
+        movieids[i] = request.form['movieid_'+str(i[0])+'_'+str(i[1])]
+    data.set_user_ratings(movieids, ratings, 900)
 
-    #data.set_user_ratings(user, ratings)
-
-    titles, images, genres = data.get_movies_by_genre(filter)
+    titles, images, genres, ids = data.get_movies_by_genre(filter)
     tags = data.get_popular_tags()
-    return render_template('index.html', movies=list(zip(titles, images, genres)), tags=tags, from_filter=1)
+    print(list(zip(titles, images, ids, genres)))
+    return render_template('index.html', movies=list(zip(titles, images, ids, genres)), tags=tags, from_filter=1)
 
 
 @app.route('/images')
@@ -48,5 +51,7 @@ def images():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    user_id=900
+    app.run(port=80, debug=True)
+
 

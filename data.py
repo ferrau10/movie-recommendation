@@ -5,6 +5,7 @@ import json
 import pickle 
 import numpy as np
 import pandas as pd
+from itertools import product  
 
 # print(sql.__version__)
 
@@ -27,37 +28,40 @@ def get_popular_tags():
     return tags
 
 def get_movies():
-    query = sql.text("SELECT * FROM links LIMIT 4")
+    query = sql.text("SELECT * FROM links ORDER BY RANDOM() LIMIT 16")
     results = engine.execute(query)
     uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
     titles = []
     images = []
     genres = []
+    ids = []
     for i in results:
-        output = str(i[1]).rjust(7, '0')
-        url = uri+output
+        imdbid = str(i[1]).rjust(7, '0')
+        url = uri+imdbid
         #resp = requests.get(url)
         #print(resp.json())
         #image = resp.json()['items'][0]['image']
         #title = resp.json()['items'][0]['title']
         image = "https://f4.bcbits.com/img/0002211150_10.jpg"
-        #title = "Gummi Bär"
+        title = "Gummi Bär"
         title = i[0] 
         titles.append(title)
         images.append(image)
         genres.append(' ')
-    return (titles, images, genres)
+        ids.append(i[0])
+    return (titles, images, genres, ids)
 
 def get_movies_by_genre(genre="%"):
-    query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.genres LIKE '{genre}' LIMIT 4")
+    query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.genres LIKE '{genre}' ORDER BY RANDOM() LIMIT 16")
     results = engine.execute(query)
     uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
     titles = []
     images = []
     genres = []
+    ids = []
     for i in results:
-        output = str(i[1]).rjust(7, '0')
-        url = uri+output
+        imdbid = str(i[1]).rjust(7, '0')
+        url = uri+imdbid
         #resp = requests.get(url)
         #print(i[5])
         #image = resp.json()['items'][0]['image']
@@ -68,10 +72,17 @@ def get_movies_by_genre(genre="%"):
         titles.append(title)
         images.append(image)
         genres.append(i[5])
-    return (titles, images, genres)
+        ids.append(i[0])
+    return (titles, images, genres, ids)
 
-# def set_user_ratings(user=900, ratings):
-#     pass
+def set_user_ratings(movieids, ratings, userid=900):
+    for i in product([1,2,3,4], [1,2,3,4]):
+        rating  = ratings[i]
+        movieid = movieids[i]
+        query = f"INSERT INTO ratings VALUES ({userid}, {movieid}, {rating}, 1445714835) ON CONFLICT (userid, movieid) DO UPDATE SET rating = {rating};"
+        if rating !="":
+            print(query)
+            engine.execute(query)
 
 #print(get_movies_by_genre('Fantasy'))
 

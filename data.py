@@ -48,6 +48,8 @@ def get_movies():
         genres.append(' ')
     return (titles, images, genres)
 
+
+
 def get_movies_by_genre(genre="%"):
     query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.genres LIKE '{genre}' LIMIT 4")
     results = engine.execute(query)
@@ -69,6 +71,21 @@ def get_movies_by_genre(genre="%"):
         images.append(image)
         genres.append(i[5])
     return (titles, images, genres)
+
+
+def get_image_by_id(movieid="%"):
+    query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.movieid = '{movieid}'")
+    results = engine.execute(query)
+    uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
+
+    for i in results:
+        output = str(i[1]).rjust(7, '0')
+        url = uri+output
+        resp = requests.get(url)
+        print(resp.json())
+        print(resp.json()['items'][0]['image'])
+        image = resp.json()['items'][0]['image']
+    return image
 
 # def set_user_ratings(user=900, ratings):
 #     pass
@@ -129,7 +146,7 @@ def get_recommendations(userId, n):
 def get_recommendations_name(userId, n):
 
     '''
-    this function gets a user Id, and returns n movie titles based on the user's ratings
+    this function gets a user Id, and returns n movie titles and their ids based on the user's ratings
     '''
 
     query = sql.text(f" select * from ratings WHERE userId = {userId}")
@@ -151,10 +168,15 @@ def get_recommendations_name(userId, n):
     
     return_list_name = []
     
-    for i in range(3):
+    for i in range(n):
         moviename= user_input['title'].iloc[i]
         return_list_name.append(moviename)
+    
+    return_list_id = []
+    
+    for i in range(n):
+        movieId = user_input.movieId.iloc[i]
+        return_list_id.append(movieId)
 
-    return return_list_name
+    return return_list_name, return_list_id
 
-print(get_recommendations_name(1, 4))

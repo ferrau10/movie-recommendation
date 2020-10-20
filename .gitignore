@@ -1,0 +1,6 @@
+playground.ipynb
+.vscode/settings.json
+__pycache__/data.cpython-36.pyc
+static/js/bower.json
+static/js/gulpfile.js
+static/js/package.json

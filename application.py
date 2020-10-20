@@ -7,16 +7,23 @@ app = Flask(__name__)
 
 @app.route('/', methods = ['POST', 'GET'])
 def index():
-    titles, images, genres, ids = data.get_movies()
+    titles, images, genres, ids = data.get_movies_by_genre("%")
+    #titles, images, genres, ids = data.get_movies()
     tags = data.get_popular_tags()
-    return render_template('index.html', movies=list(zip(titles, images, ids)), tags=tags)
+    return render_template('index.html', movies=list(zip(titles, images, ids, genres)), tags=tags, from_filter=1)
     #return render_template('index.html')
   
 
 @app.route('/recommend', methods = ['POST', 'GET'])      
 def recommend():
+    ratings = {}
+    movieids = {}
     try:
         user_id = request.args['userid']
+        for i in product([1,2,3,4], [1,2,3,4]):
+            ratings[i]  = request.form['rating_'+str(i[0])+'_'+str(i[1])]
+            movieids[i] = request.form['movieid_'+str(i[0])+'_'+str(i[1])]
+        data.set_user_ratings(movieids, ratings, 900)
     except KeyError:
         user_id = 1
     finally: 

@@ -28,7 +28,9 @@ def get_popular_tags():
     return tags
 
 def get_movies():
-    query = sql.text("SELECT * FROM links ORDER BY RANDOM() LIMIT 16")
+    # query = sql.text("SELECT * FROM links ORDER BY RANDOM() LIMIT 16")
+    query = sql.text(f"SELECT * FROM links, ratings WHERE links.movieid = ratings.movieid \
+                                                    AND ratings.movieid IN (SELECT movieid FROM ratings GROUP BY ratings.movieid ORDER BY count(rating) DESC LIMIT 200) ORDER BY RANDOM() LIMIT 16")
     results = engine.execute(query)
     uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
     titles = []
@@ -43,7 +45,7 @@ def get_movies():
         #image = resp.json()['items'][0]['image']
         #title = resp.json()['items'][0]['title']
         image = "https://f4.bcbits.com/img/0002211150_10.jpg"
-        title = "Gummi Bär"
+        #title = "Gummi Bär"
         title = i[0] 
         titles.append(title)
         images.append(image)
@@ -52,8 +54,15 @@ def get_movies():
     return (titles, images, genres, ids)
 
 def get_movies_by_genre(genre="%"):
-    query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.genres LIKE '{genre}' ORDER BY RANDOM() LIMIT 16")
+    # query = sql.text(f"SELECT * FROM links, movies, ratings WHERE movies.movieid = links.movieid \
+    #                                                         AND links.movieid = ratings.movieid \
+    #                                                         AND movies.genres LIKE '{genre}' ORDER BY RANDOM() LIMIT 16")
+   
+    query = sql.text(f"SELECT * FROM links, movies, ratings WHERE movies.movieid = links.movieid \
+                                                        AND links.movieid = ratings.movieid \
+                                                        AND movies.genres LIKE '{genre}' AND ratings.movieid IN (SELECT movieid FROM ratings GROUP BY ratings.movieid ORDER BY count(rating) DESC LIMIT 200) ORDER BY RANDOM() LIMIT 16")
     results = engine.execute(query)
+
     uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
     titles = []
     images = []
@@ -71,7 +80,10 @@ def get_movies_by_genre(genre="%"):
         title = i[0] 
         titles.append(title)
         images.append(image)
-        genres.append(i[5])
+        var = i[5]
+        if len(var.split('|')) > 3:
+            var="|".join(var.split('|')[0:2])
+        genres.append(var)
         ids.append(i[0])
     return (titles, images, genres, ids)
 

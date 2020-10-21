@@ -11,4 +11,18 @@ The user input is then saved to our database and the NMF model can be retrained.
 
 Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML, CSS, and using the ImdB api. 
 
+
+# How to use:
+- Clone the repository
+
+- Install requirements: pip install -r requirements.txt
+
+- to run: python application.py 
+
+- then open a browser on the specified location
+
+- retrain the model: python retrain_nmf_model.py
+
+
+
 This is a cooperation between Aurelie Ferron and Marcus 

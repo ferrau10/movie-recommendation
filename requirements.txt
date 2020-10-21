@@ -1,0 +1,10 @@
+sqlalchemy
+requests
+re
+json
+pickle 
+numpy
+pandas
+itertools
+flask 
+data

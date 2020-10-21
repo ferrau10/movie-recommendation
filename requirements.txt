@@ -8,3 +8,4 @@ data
 psycopg2-binary
 pandas
 sklearn
+python-decouple

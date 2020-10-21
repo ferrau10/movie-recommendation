@@ -6,7 +6,7 @@ import pickle
 import numpy as np
 import pandas as pd
 from itertools import product  
-import config 
+from decouple import config 
 
 # print(sql.__version__)
 
@@ -16,7 +16,7 @@ PORT = '5432'
 DB = 'moviedb'
 PASSWORD = 'postgres'
 
-print(config.var)
+print(config('var'))
 
 engine = sql.create_engine(f'postgres://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB}')
 query = sql.text("SELECT * FROM links LIMIT 7")
@@ -69,8 +69,10 @@ def get_movies_by_genre(genre="%"):
                                                         AND movies.genres LIKE '{genre}' AND ratings.movieid IN (SELECT movieid FROM ratings GROUP BY ratings.movieid ORDER BY count(rating) DESC LIMIT 200) ORDER BY RANDOM() LIMIT 16")
     results = engine.execute(query)
 
-    uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
+    #uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
     #uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
+    #uri = 'https://imdb-api.com/en/API/Images/k_n58kic8z/tt'
+    uri = 'https://imdb-api.com/en/API/Images/k_mv9u9meb/tt'
     titles = []
     images = []
     genres = []
@@ -79,6 +81,7 @@ def get_movies_by_genre(genre="%"):
         imdbid = str(i[1]).rjust(7, '0')
         url = uri+imdbid
         resp = requests.get(url)
+        print(resp.json())
         image = resp.json()['items'][0]['image']
         title = resp.json()['fullTitle']
         #image = "https://f4.bcbits.com/img/0002211150_10.jpg"
@@ -106,7 +109,11 @@ def set_user_ratings(movieids, ratings, userid=900):
 def get_image_by_id(movieid="%"):
     query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.movieid = '{movieid}'")
     results = engine.execute(query)
-    uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
+    #uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
+    #uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
+    #uri = 'https://imdb-api.com/en/API/Images/k_n58kic8z/tt'
+    uri = 'https://imdb-api.com/en/API/Images/k_mv9u9meb/tt'
+    
 
     for i in results:
         output = str(i[1]).rjust(7, '0')

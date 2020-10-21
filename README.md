@@ -12,7 +12,7 @@ The user input is then saved to our database and the NMF model can be retrained.
 Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML, CSS, and using the ImdB api. 
 
 
-# How to use:
+### How to use:
 - Clone the repository
 
 - Install requirements: pip install -r requirements.txt
@@ -23,6 +23,9 @@ Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML,
 
 - retrain the model: python retrain_nmf_model.py
 
+### Dataset: MovieLens dataset
+https://grouplens.org/datasets/movielens/
+100,000 ratings and 3,600 tag applications applied to 9,000 movies by 600 users. Last updated 9/2018.
 
 
 This is a cooperation between Aurelie Ferron and Marcus 

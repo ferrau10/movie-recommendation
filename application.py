@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import data
 from itertools import product   
 
+
 # instantiate a Flask application
 app = Flask(__name__)
 

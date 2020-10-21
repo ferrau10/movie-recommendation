@@ -75,11 +75,11 @@ def get_movies_by_genre(genre="%"):
     for i in results:
         imdbid = str(i[1]).rjust(7, '0')
         url = uri+imdbid
-        resp = requests.get(url)
-        image = resp.json()['items'][0]['image']
-        title = resp.json()['fullTitle']
-        #image = "https://f4.bcbits.com/img/0002211150_10.jpg"
-        #title = i[0] 
+        #resp = requests.get(url)
+        #image = resp.json()['items'][0]['image']
+        #title = resp.json()['fullTitle']
+        image = "https://f4.bcbits.com/img/0002211150_10.jpg"
+        title = i[0] 
         titles.append(title)
         images.append(image)
         var = i[5]
@@ -109,8 +109,8 @@ def get_image_by_id(movieid="%"):
         output = str(i[1]).rjust(7, '0')
         url = uri+output
         resp = requests.get(url)
-        print(resp.json())
-        print(resp.json()['items'][0]['image'])
+        #print(resp.json())
+        #print(resp.json()['items'][0]['image'])
         image = resp.json()['items'][0]['image']
     return image
 

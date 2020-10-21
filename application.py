@@ -34,6 +34,7 @@ def recommend():
     return render_template('recommend.html', recommendation=list(zip(recommendation_name, recommendation_id, image_list)))
 
 
+
 @app.route('/filter', methods = ['POST', 'GET'])
 def filter():
     ratings = {}
@@ -54,6 +55,6 @@ def filter():
 
 if __name__ == '__main__':
     user_id=900
-    app.run(debug=True)
+    app.run(debug=True, port=80)
 
 

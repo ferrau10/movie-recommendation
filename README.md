@@ -9,6 +9,8 @@ They can rate those 16 movies if they have already seen, and based on their rati
 
 The user input is then saved to our database and the NMF model can be retrained.
 
+![visualization](./recommend.gif)
+
 Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML, CSS, and using the ImdB api. 
 
 

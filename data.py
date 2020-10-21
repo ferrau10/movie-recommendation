@@ -44,6 +44,7 @@ def get_movies():
         #print(resp.json())
         #image = resp.json()['items'][0]['image']
         #title = resp.json()['items'][0]['title']
+        #title = resp.json()['fullTitle']
         image = "https://f4.bcbits.com/img/0002211150_10.jpg"
         #title = "Gummi Bär"
         title = i[0] 
@@ -66,6 +67,7 @@ def get_movies_by_genre(genre="%"):
     results = engine.execute(query)
 
     uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
+    #uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
     titles = []
     images = []
     genres = []
@@ -73,13 +75,11 @@ def get_movies_by_genre(genre="%"):
     for i in results:
         imdbid = str(i[1]).rjust(7, '0')
         url = uri+imdbid
-        #resp = requests.get(url)
-        #print(i[5])
-        #image = resp.json()['items'][0]['image']
-        #title = resp.json()['items'][0]['title']
-        image = "https://f4.bcbits.com/img/0002211150_10.jpg"
-        #title = "Gummi Bär"
-        title = i[0] 
+        resp = requests.get(url)
+        image = resp.json()['items'][0]['image']
+        title = resp.json()['fullTitle']
+        #image = "https://f4.bcbits.com/img/0002211150_10.jpg"
+        #title = i[0] 
         titles.append(title)
         images.append(image)
         var = i[5]

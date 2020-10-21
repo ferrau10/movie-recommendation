@@ -11,7 +11,6 @@ def index():
     #titles, images, genres, ids = data.get_movies()
     tags = data.get_popular_tags()
     return render_template('index.html', movies=list(zip(titles, images, ids, genres)), tags=tags, from_filter=1)
-    #return render_template('index.html')
   
 
 @app.route('/recommend', methods = ['POST', 'GET'])      
@@ -35,8 +34,6 @@ def recommend():
     return render_template('recommend.html', recommendation=list(zip(recommendation_name, recommendation_id, image_list)))
 
 
-
-# trigger hello function every time somebody visits \home on my website
 @app.route('/filter', methods = ['POST', 'GET'])
 def filter():
     ratings = {}
@@ -53,12 +50,6 @@ def filter():
     tags = data.get_popular_tags()
     print(list(zip(titles, images, ids, genres)))
     return render_template('index.html', movies=list(zip(titles, images, ids, genres)), tags=tags, from_filter=1)
-
-
-@app.route('/images')
-def images():
-    return render_template('images.html')
-
 
 
 if __name__ == '__main__':

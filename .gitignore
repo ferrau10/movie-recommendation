@@ -4,3 +4,6 @@ __pycache__/data.cpython-36.pyc
 static/js/bower.json
 static/js/gulpfile.js
 static/js/package.json
+get_recommendations.py 
+NMF_SVMs.ipynb
+NMF-big-dataset.ipynb

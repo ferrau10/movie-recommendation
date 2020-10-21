@@ -1,5 +1,5 @@
 ### Movie Recommender 
-->  add a gif of our website here###
+![visualization](./home.gif)
 
 ## A website to recommend movies based on user input
 

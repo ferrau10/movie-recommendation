@@ -1,11 +1,12 @@
 import sqlalchemy as sql
 import requests
-import re
+import requests as re
 import json
 import pickle 
 import numpy as np
 import pandas as pd
 from itertools import product  
+import config 
 
 # print(sql.__version__)
 
@@ -14,6 +15,8 @@ USERNAME = 'postgres'
 PORT = '5432'
 DB = 'moviedb'
 PASSWORD = 'postgres'
+
+print(config.var)
 
 engine = sql.create_engine(f'postgres://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB}')
 query = sql.text("SELECT * FROM links LIMIT 7")

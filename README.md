@@ -1,7 +1,7 @@
-Movie Recommender 
-### add a gif of our website here###
+### Movie Recommender 
+->  add a gif of our website here###
 
-A website to recommend movies based on user input
+## A website to recommend movies based on user input
 
 A non-negative Matrix Factorization based model recommends movies based on unlimited ratings of movies done by the user. 
 On the main page, the user is randomly shown 16 of the 200 most rated movies from our database. 

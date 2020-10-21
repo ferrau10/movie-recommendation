@@ -15,6 +15,8 @@ Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML,
 
 
 ### How to use:
+- Create a virtual environement with python 3.8 (optional): conda create -n py38 python=3.8
+
 - Clone the repository
 
 - Install requirements: pip install -r requirements.txt

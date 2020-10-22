@@ -7,3 +7,6 @@ static/js/package.json
 get_recommendations.py 
 NMF_SVMs.ipynb
 NMF-big-dataset.ipynb
+.env
+NMF.ipynb
+Collab_filtering_small.ipynb

@@ -1,11 +1,12 @@
 import sqlalchemy as sql
 import requests
-import re
+import requests as re
 import json
 import pickle 
 import numpy as np
 import pandas as pd
 from itertools import product  
+from decouple import config 
 
 # print(sql.__version__)
 
@@ -18,6 +19,8 @@ USERNAME = 'postgres'
 PORT = '5432'
 DB = 'moviedb'
 PASSWORD = 'postgres'
+
+print(config('var'))
 
 engine = sql.create_engine(f'postgres://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB}')
 
@@ -35,11 +38,13 @@ def get_movies_by_genre(genre="%"):
                                                         AND links.movieid = ratings.movieid \
                                                         AND movies.genres LIKE '{genre}' AND ratings.movieid IN (SELECT movieid FROM ratings GROUP BY ratings.movieid ORDER BY count(rating) DESC LIMIT 200) ORDER BY RANDOM() LIMIT 16")
     results = engine.execute(query)
+
     """
     You need a ImDB API key and put it here. The one shown here is just an example
     """
     api_key = 'k12345678' 
     uri = f"https://imdb-api.com/en/API/Images/{api_key}/tt"
+
     titles = []
     images = []
     genres = []
@@ -48,6 +53,7 @@ def get_movies_by_genre(genre="%"):
         imdbid = str(i[1]).rjust(7, '0')
         url = uri+imdbid
         resp = requests.get(url)
+        print(resp.json())
         image = resp.json()['items'][0]['image']
         title = resp.json()['fullTitle']
         titles.append(title)
@@ -73,7 +79,11 @@ def set_user_ratings(movieids, ratings, userid=900):
 def get_image_by_id(movieid="%"):
     query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.movieid = '{movieid}'")
     results = engine.execute(query)
-    uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
+    #uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
+    #uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
+    #uri = 'https://imdb-api.com/en/API/Images/k_n58kic8z/tt'
+    uri = 'https://imdb-api.com/en/API/Images/k_mv9u9meb/tt'
+    
 
     for i in results:
         output = str(i[1]).rjust(7, '0')

@@ -9,7 +9,6 @@ app = Flask(__name__)
 @app.route('/', methods = ['POST', 'GET'])
 def index():
     titles, images, genres, ids = data.get_movies_by_genre("%")
-    #titles, images, genres, ids = data.get_movies()
     tags = data.get_popular_tags()
     return render_template('index.html', movies=list(zip(titles, images, ids, genres)), tags=tags, from_filter=1)
   
@@ -35,6 +34,7 @@ def recommend():
     return render_template('recommend.html', recommendation=list(zip(recommendation_name, recommendation_id, image_list)))
 
 
+
 @app.route('/filter', methods = ['POST', 'GET'])
 def filter():
     ratings = {}
@@ -55,6 +55,6 @@ def filter():
 
 if __name__ == '__main__':
     user_id=900
-    app.run(debug=True)
+    app.run(debug=True, port=80)
 
 

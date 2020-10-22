@@ -9,6 +9,10 @@ from itertools import product
 
 # print(sql.__version__)
 
+"""
+Use your Database connection parameters here !!
+The ones shown here are just examples.
+"""
 HOST = '34.89.195.148'
 USERNAME = 'postgres'
 PORT = '5432'
@@ -16,8 +20,6 @@ DB = 'moviedb'
 PASSWORD = 'postgres'
 
 engine = sql.create_engine(f'postgres://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB}')
-query = sql.text("SELECT * FROM links LIMIT 7")
-results = engine.execute(query)
 
 def get_popular_tags():
     query = sql.text("SELECT * FROM tags LIMIT 15")
@@ -27,47 +29,17 @@ def get_popular_tags():
         tags.append(i[2])
     return tags
 
-def get_movies():
-    # query = sql.text("SELECT * FROM links ORDER BY RANDOM() LIMIT 16")
-    query = sql.text(f"SELECT * FROM links, ratings WHERE links.movieid = ratings.movieid \
-                                                    AND ratings.movieid IN (SELECT movieid FROM ratings GROUP BY ratings.movieid ORDER BY count(rating) DESC LIMIT 200) ORDER BY RANDOM() LIMIT 16")
-    results = engine.execute(query)
-    uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
-    titles = []
-    images = []
-    genres = []
-    ids = []
-    for i in results:
-        imdbid = str(i[1]).rjust(7, '0')
-        url = uri+imdbid
-        #resp = requests.get(url)
-        #print(resp.json())
-        #image = resp.json()['items'][0]['image']
-        #title = resp.json()['items'][0]['title']
-        #title = resp.json()['fullTitle']
-        image = "https://f4.bcbits.com/img/0002211150_10.jpg"
-        #title = "Gummi Bär"
-        title = i[0] 
-        titles.append(title)
-        images.append(image)
-        genres.append(' ')
-        ids.append(i[0])
-    return (titles, images, genres, ids)
 
-
-
-def get_movies_by_genre(genre="%"):
-    # query = sql.text(f"SELECT * FROM links, movies, ratings WHERE movies.movieid = links.movieid \
-    #                                                         AND links.movieid = ratings.movieid \
-    #                                                         AND movies.genres LIKE '{genre}' ORDER BY RANDOM() LIMIT 16")
-   
+def get_movies_by_genre(genre="%"):   
     query = sql.text(f"SELECT * FROM links, movies, ratings WHERE movies.movieid = links.movieid \
                                                         AND links.movieid = ratings.movieid \
                                                         AND movies.genres LIKE '{genre}' AND ratings.movieid IN (SELECT movieid FROM ratings GROUP BY ratings.movieid ORDER BY count(rating) DESC LIMIT 200) ORDER BY RANDOM() LIMIT 16")
     results = engine.execute(query)
-
-    uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
-    #uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
+    """
+    You need a ImDB API key and put it here. The one shown here is just an example
+    """
+    api_key = 'k12345678' 
+    uri = f"https://imdb-api.com/en/API/Images/{api_key}/tt"
     titles = []
     images = []
     genres = []
@@ -75,11 +47,9 @@ def get_movies_by_genre(genre="%"):
     for i in results:
         imdbid = str(i[1]).rjust(7, '0')
         url = uri+imdbid
-        #resp = requests.get(url)
-        #image = resp.json()['items'][0]['image']
-        #title = resp.json()['fullTitle']
-        image = "https://f4.bcbits.com/img/0002211150_10.jpg"
-        title = i[0] 
+        resp = requests.get(url)
+        image = resp.json()['items'][0]['image']
+        title = resp.json()['fullTitle']
         titles.append(title)
         images.append(image)
         var = i[5]

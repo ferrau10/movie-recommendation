@@ -8,7 +8,6 @@ app = Flask(__name__)
 @app.route('/', methods = ['POST', 'GET'])
 def index():
     titles, images, genres, ids = data.get_movies_by_genre("%")
-    #titles, images, genres, ids = data.get_movies()
     tags = data.get_popular_tags()
     return render_template('index.html', movies=list(zip(titles, images, ids, genres)), tags=tags, from_filter=1)
   

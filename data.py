@@ -10,15 +10,14 @@ from decouple import config
 
 # print(sql.__version__)
 
-"""
-Use your Database connection parameters here !!
-The ones shown here are just examples.
-"""
-HOST = '34.89.195.148'
-USERNAME = 'postgres'
-PORT = '5432'
-DB = 'moviedb'
-PASSWORD = 'postgres'
+with open('config.json') as config:
+    data = json.load(config)
+    HOST = data['database-connection']['HOST']
+    USERNAME = data['database-connection']['USERNAME']    
+    PORT = data['database-connection']['PORT']
+    DB = data['database-connection']['DB']
+    PASSWORD = data['database-connection']['PASSWORD']
+    API-KEY = data['API-KEY']
 
 print(config('var'))
 
@@ -37,13 +36,9 @@ def get_movies_by_genre(genre="%"):
     query = sql.text(f"SELECT * FROM links, movies, ratings WHERE movies.movieid = links.movieid \
                                                         AND links.movieid = ratings.movieid \
                                                         AND movies.genres LIKE '{genre}' AND ratings.movieid IN (SELECT movieid FROM ratings GROUP BY ratings.movieid ORDER BY count(rating) DESC LIMIT 200) ORDER BY RANDOM() LIMIT 16")
-    results = engine.execute(query)
 
-    """
-    You need a ImDB API key and put it here. The one shown here is just an example
-    """
-    api_key = 'k12345678' 
-    uri = f"https://imdb-api.com/en/API/Images/{api_key}/tt"
+    results = engine.execute(query)  
+    uri = f"https://imdb-api.com/en/API/Images/{API_KEY}/tt"
 
     titles = []
     images = []
@@ -79,12 +74,9 @@ def set_user_ratings(movieids, ratings, userid=900):
 def get_image_by_id(movieid="%"):
     query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.movieid = '{movieid}'")
     results = engine.execute(query)
-    #uri = 'https://imdb-api.com/en/API/Images/k_edey695y/tt'
-    #uri = 'https://imdb-api.com/en/API/Images/k_uekfxuke/tt'
-    #uri = 'https://imdb-api.com/en/API/Images/k_n58kic8z/tt'
-    uri = 'https://imdb-api.com/en/API/Images/k_mv9u9meb/tt'
-    
 
+    uri = f'https://imdb-api.com/en/API/Images/{API-KEY}/tt'
+    
     for i in results:
         output = str(i[1]).rjust(7, '0')
         url = uri+output

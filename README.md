@@ -22,6 +22,12 @@ Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML,
 
 - Install requirements: pip install -r requirements.txt
 
+- setup a postgres database and import the data from the csv files below (see 'MovieLens dataset')
+
+- register at https://www.imdb.com/ and get an API key
+
+- enter database connection parameters and API key into the config.json file (see example data in the config.json file) 
+
 - to run: python application.py 
 
 - then open a browser on the specified location

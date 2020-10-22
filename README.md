@@ -24,7 +24,7 @@ Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML,
 
 - setup a postgres database and import the data from the csv files below (see 'MovieLens dataset')
 
-- register at https://www.imdb.com/ and get an API key
+- register at [ImDb](https://www.imdb.com/) and get an API key
 
 - enter database connection parameters and API key into the config.json file (see example data in the config.json file) 
 
@@ -39,4 +39,4 @@ https://grouplens.org/datasets/movielens/
 100,000 ratings and 3,600 tag applications applied to 9,000 movies by 600 users. Last updated 9/2018.
 
 
-This is a cooperation between [Marcus Schliemann](https://github.com/mscschliemann) and [Aurelie Ferron](https://github.com/ferrau10)
+This is a cooperation between [Aurelie Ferron](https://github.com/ferrau10) and [Marcus Schliemann](https://github.com/mscschliemann)

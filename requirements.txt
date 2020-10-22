@@ -1,10 +1,11 @@
 sqlalchemy
 requests
-re
-json
-pickle 
+requests
 numpy
 pandas
-itertools
 flask 
 data
+psycopg2-binary
+pandas
+sklearn
+python-decouple

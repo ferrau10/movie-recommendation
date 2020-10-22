@@ -1,11 +1,12 @@
 import sqlalchemy as sql
 import requests
-import re
+import requests as re
 import json
 import pickle 
 import numpy as np
 import pandas as pd
 from itertools import product  
+from decouple import config 
 
 # print(sql.__version__)
 
@@ -17,6 +18,8 @@ with open('config.json') as config:
     DB = data['database-connection']['DB']
     PASSWORD = data['database-connection']['PASSWORD']
     API-KEY = data['API-KEY']
+
+print(config('var'))
 
 engine = sql.create_engine(f'postgres://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB}')
 
@@ -33,8 +36,10 @@ def get_movies_by_genre(genre="%"):
     query = sql.text(f"SELECT * FROM links, movies, ratings WHERE movies.movieid = links.movieid \
                                                         AND links.movieid = ratings.movieid \
                                                         AND movies.genres LIKE '{genre}' AND ratings.movieid IN (SELECT movieid FROM ratings GROUP BY ratings.movieid ORDER BY count(rating) DESC LIMIT 200) ORDER BY RANDOM() LIMIT 16")
+
     results = engine.execute(query)  
     uri = f"https://imdb-api.com/en/API/Images/{API_KEY}/tt"
+
     titles = []
     images = []
     genres = []
@@ -43,6 +48,7 @@ def get_movies_by_genre(genre="%"):
         imdbid = str(i[1]).rjust(7, '0')
         url = uri+imdbid
         resp = requests.get(url)
+        print(resp.json())
         image = resp.json()['items'][0]['image']
         title = resp.json()['fullTitle']
         titles.append(title)
@@ -68,8 +74,9 @@ def set_user_ratings(movieids, ratings, userid=900):
 def get_image_by_id(movieid="%"):
     query = sql.text(f"SELECT * FROM links, movies WHERE movies.movieid = links.movieid AND movies.movieid = '{movieid}'")
     results = engine.execute(query)
-    uri = f'https://imdb-api.com/en/API/Images/{API-KEY}/tt'
 
+    uri = f'https://imdb-api.com/en/API/Images/{API-KEY}/tt'
+    
     for i in results:
         output = str(i[1]).rjust(7, '0')
         url = uri+output

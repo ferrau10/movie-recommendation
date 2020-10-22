@@ -33,4 +33,4 @@ https://grouplens.org/datasets/movielens/
 100,000 ratings and 3,600 tag applications applied to 9,000 movies by 600 users. Last updated 9/2018.
 
 
-This is a cooperation between Aurelie Ferron and Marcus Schliemann
+This is a cooperation between [Marcus Schliemann](https://github.com/mscschliemann) and [Aurelie Ferron](https://github.com/ferrau10)

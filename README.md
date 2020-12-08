@@ -24,7 +24,7 @@ Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML,
 
 - setup a postgres database and import the data from the csv files you can download [here](http://files.grouplens.org/datasets/movielens/ml-latest-small.zip)
 
-- register at [ImDb](https://www.imdb.com/) and get an API key
+- register at [ImDb](https://www.imdb-api.com ) and get an API key
 
 - enter database connection parameters and API key into the config.json file (see example data in the config.json file) 
 

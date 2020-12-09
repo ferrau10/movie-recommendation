@@ -1,8 +1,6 @@
 sqlalchemy
 requests
-requests
 numpy
-pandas
 flask 
 data
 psycopg2-binary

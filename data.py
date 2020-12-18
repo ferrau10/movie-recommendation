@@ -17,9 +17,8 @@ with open('config.json') as config:
     PORT = data['database-connection']['PORT']
     DB = data['database-connection']['DB']
     PASSWORD = data['database-connection']['PASSWORD']
-    API-KEY = data['API-KEY']
+    API_KEY = data['API-KEY']
 
-print(config('var'))
 
 engine = sql.create_engine(f'postgres://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB}')
 

@@ -1,11 +1,11 @@
 {
     "_comment": "Enter your parameters here!! The ones shown below are just examples.",
     "database-connection": {
-        "HOST": "34.89.195.148",
-        "USERNAME": "postgres",
+        "HOST": "localhost",
+        "USERNAME": "movies",
         "PORT": "5432",
-        "DB": "moviedb",
-        "PASSWORD": "postgres"
+        "DB": "movie_db",
+        "PASSWORD": "movies"
     },
     "API-KEY": "k_uekfxuke"
 }

@@ -8,11 +8,13 @@ from sklearn.decomposition import NMF
 # 1. Loading the data from the postgres db
 
 
-HOST = '34.89.195.148'
-USERNAME = 'postgres'
-PORT = '5432'
-DB = 'moviedb'
-PASSWORD = 'postgres'
+with open('config.json') as config:
+    data = json.load(config)
+    HOST = data['database-connection']['HOST']
+    USERNAME = data['database-connection']['USERNAME']    
+    PORT = data['database-connection']['PORT']
+    DB = data['database-connection']['DB']
+    PASSWORD = data['database-connection']['PASSWORD']
 
 engine = sql.create_engine(f'postgres://{USERNAME}:{PASSWORD}@{HOST}:{PORT}/{DB}')
 query = sql.text("SELECT * FROM ratings")

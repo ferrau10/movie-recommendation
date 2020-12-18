@@ -11,28 +11,29 @@ The user input is then saved to our database and the NMF model can be retrained.
 
 ![visualization](./recommend.gif)
 
-Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML, CSS, and using the ImdB api. 
+**Note**: Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML, CSS, backed by IMDb api. 
 
 
 ## How to use:
 - Create a virtual environment with python 3.8 (optional): conda create -n py38 python=3.8 
+
 - Activate the virtual environment (optional): conda activate py38
 
 - Clone the repository
 
-- Install requirements: pip install -r requirements.txt
+- Install requirements: `pip install -r requirements.txt`
 
-- setup a postgres database and import the data from the csv files you can download [here](http://files.grouplens.org/datasets/movielens/ml-latest-small.zip)
+- Setup a postgres database and import the data from the csv files you can download [here](http://files.grouplens.org/datasets/movielens/ml-latest-small.zip)
 
-- register at [ImDb](https://www.imdb-api.com ) and get an API key
+- Register at [ImDb](https://www.imdb-api.com ) and get an API key
 
-- enter database connection parameters and API key into the config.json file (see example data in the config.json file) 
+- Enter database connection parameters and API key into the config.json file (see example data in the config.json file) 
 
-- to run: python application.py 
+- To run: `python application.py` 
 
-- then open a browser on the specified location
+- Then open a browser on the specified location
 
-- retrain the model: python retrain_nmf_model.py
+- Retrain the model: `python retrain_nmf_model.py`
 
 ## Dataset: MovieLens dataset
 https://grouplens.org/datasets/movielens/

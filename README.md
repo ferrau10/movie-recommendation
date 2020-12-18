@@ -1,4 +1,4 @@
-### Movie Recommender 
+# Movie Recommender 
 ![visualization](./home.gif)
 
 ## A website to recommend movies based on user input
@@ -14,7 +14,7 @@ The user input is then saved to our database and the NMF model can be retrained.
 Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML, CSS, and using the ImdB api. 
 
 
-### How to use:
+## How to use:
 - Create a virtual environment with python 3.8 (optional): conda create -n py38 python=3.8 
 - Activate the virtual environment (optional): conda activate py38
 
@@ -34,7 +34,7 @@ Developed in Week 10 of the Spiced-Bootcamp using Python, Flask, Postgres, HTML,
 
 - retrain the model: python retrain_nmf_model.py
 
-### Dataset: MovieLens dataset
+## Dataset: MovieLens dataset
 https://grouplens.org/datasets/movielens/
 100,000 ratings and 3,600 tag applications applied to 9,000 movies by 600 users. Last updated 9/2018.
 
